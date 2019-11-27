@@ -13,6 +13,20 @@ const prog = [
 vm.init(prog)
 vm.run()
 
+const prog2 = [
+  opcode.PUSH, 10,
+  opcode.PUSH, 5,
+  opcode.PUSH, 3,
+  opcode.INC,
+  opcode.SUB,
+  opcode.INC,
+  opcode.MUL,
+  opcode.DEC,
+  opcode.PR,
+]
+vm.init(prog2)
+vm.run()
+
 
 
 
