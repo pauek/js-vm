@@ -11,6 +11,8 @@ const _opcodeList = [
   { name: "POP", code: 2, numArgs: 0 },
 
   { name: "ADD", code: 10, numArgs: 0 },
+
+  { name: "PR", code: 100, numArgs: 0 },
 ]
 
 _opcodeList.forEach(op => {
