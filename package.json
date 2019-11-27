@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/pauek/js-vm/issues"
   },
-  "homepage": "https://github.com/pauek/js-vm#readme"
+  "homepage": "https://github.com/pauek/js-vm#readme",
+  "dependencies": {
+    "sprintf-js": "^1.1.2"
+  }
 }

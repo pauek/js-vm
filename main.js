@@ -25,6 +25,7 @@ const prog2 = [
   opcode.PR,
 ]
 vm.init(prog2)
+vm.setTrace(true)
 vm.run()
 
 

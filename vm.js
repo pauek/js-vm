@@ -1,5 +1,8 @@
 
 const { opcode, opcodeInfo } = require('./opcode')
+const { sprintf } = require('sprintf-js')
+
+const printf = (...args) => process.stdout.write(sprintf(...args))
 
 const State = {
   halted: 'halted',
@@ -11,6 +14,7 @@ class VirtualMachine {
     this.stack = []
     this.flag = false
     this.state = State.halted
+    this._trace = false
   }
 
   init(code) {
@@ -19,12 +23,35 @@ class VirtualMachine {
     this.state = State.running
   }
 
+  setTrace(newValue) {
+    this._trace = newValue
+  } 
+
   ok() {
     return this.state === State.running &&
       this.ip < this.code.length
   }
 
+  _traceBegin() {
+    this._traceAcum = sprintf("%04d: ", this.ip)
+    const op = this.code[this.ip]
+    const info = opcodeInfo[op]
+    let instr = info.name
+    for (let i = 0; i < info.numArgs; i++) {
+      instr += ` ${this.code[this.ip + 1 + i]}`
+    }
+    this._traceAcum += sprintf("%-15s", instr)
+    this._traceAcum += sprintf("[%s]", this.stack.join(", "))
+  }
+
+  _traceEnd() {
+    console.log(this._traceAcum + ` -> [${this.stack.join(', ')}]`)
+  }
+
   step() {
+
+    if (this._trace) this._traceBegin()
+
     const next = () => {
       const value = this.code[this.ip]
       this.ip++
@@ -122,6 +149,8 @@ class VirtualMachine {
       default:
         throw new Error('VM Panic: unknown instruction')
     }
+
+    if (this._trace) this._traceEnd()
   }
 
   run() {
