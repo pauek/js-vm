@@ -40,7 +40,7 @@ class VirtualMachine {
     for (let i = 0; i < info.numArgs; i++) {
       instr += ` ${this.code[this.ip + 1 + i]}`
     }
-    this._traceAcum += sprintf("%-15s", instr)
+    this._traceAcum += sprintf("%-15s %s ", instr, (this.flag ? '*' : ' '))
     this._traceAcum += sprintf("[%s]", this.stack.join(", "))
   }
 
@@ -149,6 +149,20 @@ class VirtualMachine {
       case opcode.BR: {
         const newip = next()
         this.ip = newip
+        break
+      }
+      case opcode.BRT: {
+        const newip = next()
+        if (this.flag) {
+          this.ip = newip
+        }
+        break
+      }
+      case opcode.BRF: {
+        const newip = next()
+        if (!this.flag) {
+          this.ip = newip
+        }
         break
       }
 
