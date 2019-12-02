@@ -1,5 +1,4 @@
 
-const { opcode, opcodeInfo } = require('./opcode')
 const VirtualMachine = require('./vm')
 const asm = require('./asm')
 

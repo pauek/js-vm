@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { opcode, opcodeInfo } = require('./opcode')
+const { opcode } = require('./opcode')
 
 const fatal = (msg) => {
   console.error(msg)
