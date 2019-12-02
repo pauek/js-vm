@@ -80,7 +80,7 @@ class VirtualMachine {
         pop()
         break
       case opcode.DUP:
-        push(top())
+        push(...top())
         break
       case opcode.DUP2:
         push(...top(2))
