@@ -146,8 +146,16 @@ class VirtualMachine {
         console.log(pop())
         break
 
+      case opcode.BR: {
+        const newip = next()
+        this.ip = newip
+        break
+      }
+
       default:
-        throw new Error('VM Panic: unknown instruction')
+        throw new Error(
+          `VM Panic: unknown instruction '${opcodeInfo[op].name}'`
+        )
     }
 
     if (this._trace) this._traceEnd()
