@@ -48,6 +48,10 @@ class VirtualMachine {
     console.log(this._traceAcum + ` -> [${this.stack.join(', ')}]`)
   }
 
+  push(...args) {
+    this.stack.push(...args)
+  }
+
   step() {
 
     if (this._trace) this._traceBegin()
