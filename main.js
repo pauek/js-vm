@@ -1,32 +1,20 @@
 
 const { opcode, opcodeInfo } = require('./opcode')
 const VirtualMachine = require('./vm')
+const asm = require('./asm')
+
+const [_1, _2, ...args] = process.argv
+if (args.length === 0) {
+  console.error(`usage: node main.js <file.asm>`)
+  process.exit(1)
+}
+console.log(asm.read(args[0]))
+process.exit(0)
 
 const vm = new VirtualMachine()
-const prog = [
-  opcode.PUSH, 200000,
-  opcode.PUSH, 3,
-  opcode.ADD,
-  opcode.PR,
-  opcode.HALT,
-]
 vm.init(prog)
 vm.run()
 
-const prog2 = [
-  opcode.PUSH, 10,
-  opcode.PUSH, 5,
-  opcode.PUSH, 3,
-  opcode.INC,
-  opcode.SUB,
-  opcode.INC,
-  opcode.MUL,
-  opcode.DEC,
-  opcode.PR,
-]
-vm.init(prog2)
-vm.setTrace(true)
-vm.run()
 
 
 
