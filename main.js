@@ -8,10 +8,10 @@ if (args.length === 0) {
   console.error(`usage: node main.js <file.asm>`)
   process.exit(1)
 }
-console.log(asm.read(args[0]))
-process.exit(0)
-
+const prog = asm.read(args[0])
 const vm = new VirtualMachine()
+
+vm.setTrace(args.indexOf('--trace') !== -1)
 vm.init(prog)
 vm.run()
 
